@@ -1,28 +1,34 @@
 <?php
 
 namespace MyGreeter;
-
+/**
+ * Question 2 : 
+ *      if the class 'Client' is fondamental, and it's use is over plateform, then it should be irrelavent to a physical environment
+ *      so the use of "date('G')" is deprecated, a hour variable is introduced
+ */
 class Client {
-
     /**
      * getGreeting
      * @description say greetings based on local time
      *      1. "Good morning" if it is after 12am and just before 12pm
      *      2. "Good afternoon" if it is after 12pm and just before 6pm
      *      3. "Good evening" if it is after 6pm and just before 12am
+     * @param int $hour
      * @return string
      */
-    public function getGreeting() {
+    public function getGreeting($hour) {
+        if(!is_int($hour)||$hour<0||$hour>=24){
+            throw new \Exception('the parameter $hour should be a integer, his value should between 0 and 23');
+        }
+        
         $greeting = 'Good morning';
-        $h = intval(date('G'));
-        if ($h >= 0 && $h < 12) {
+        if ($hour >= 0 && $hour < 12) {
             $greeting = 'Good morning';
-        } elseif ($h >= 12 && $h < 18) {
+        } elseif ($hour >= 12 && $hour < 18) {
             $greeting = 'Good afternoon';
-        } elseif ($h >= 18 && $h < 24) {
+        } elseif ($hour >= 18 && $hour < 24) {
             $greeting = 'Good evening';
         }
         return $greeting;
     }
-
 }
